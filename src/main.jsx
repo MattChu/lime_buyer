@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App.jsx";
 
 import { UserProvider } from "./contexts/UserContext";
+import { LocationProvider } from "./contexts/LocationContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
-      <App />
+      <LocationProvider>
+        <App />
+      </LocationProvider>
     </UserProvider>
   </StrictMode>
 );
