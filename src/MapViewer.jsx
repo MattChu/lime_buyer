@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 
-
+// Add marker function for clicking to add markers. MISSING LIME PNG to add later. Note this will need additional functionality as seems flimsy with one click add.
 function AddMarker() {
     const [markers, setMarkers] = useState([])
 
@@ -26,8 +26,9 @@ function AddMarker() {
 }
 
 function MapView() {
-  const [userLocation, setUserLocation] = useState(null);
-
+    const [userLocation, setUserLocation] = useState(null);
+    
+// useEffect to determine users current location and setting coordinates.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
