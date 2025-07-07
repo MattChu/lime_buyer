@@ -66,27 +66,40 @@ function FruitMarker({ userLocation }) {
   (
     node["shop"="greengrocer"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
     node["shop"="supermarket"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
+    node["name"~"Tesco"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
+    node["name"~"M&S"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
+    node["name"~"Selfridges"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
   );
   out body;
 `;
 
-    fetch("https://overpass-api.de/api/interpreter", {
-      method: "POST",
-      body: overpassQuery,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const results = data.elements.map((element) => ({
+      fetch("https://overpass-api.de/api/interpreter", {
+    method: "POST",
+    body: overpassQuery,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const results = data.elements.map((element) => {
+        const name = element.tags.name?.toLowerCase() || "";
+        let type = element.tags.shop || "other";
+
+        if (name.includes("tesco")) type = "tesco";
+        else if (name.includes("m&s")) type = "mands";
+        else if (name.includes("selfridges")) type = "selfridges";
+
+        return {
           id: element.id,
           lat: element.lat,
           lon: element.lon,
           name: element.tags.name || "unknown",
-          type: element.tags.shop,
-        }));
-        setShops(results);
-      })
-      .catch(console.error);
-  }, []);
+          type,
+        };
+      });
+
+      setShops(results);
+    })
+    .catch(console.error);
+}, [userLocation]);
 
   return (
     <>
