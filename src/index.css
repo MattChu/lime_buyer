@@ -67,6 +67,21 @@
   background: limegreen;
   border-color: yellow;
 }
+
+.marker-dot.tesco {
+  background: red;
+  border-color: pink;
+}
+
+.marker-dot.mands {
+  background: purple;
+  border-color: violet;
+}
+
+.marker-dot.selfridges {
+  background: gold;
+  border-color: black;
+}
 html,
 body,
 #root {
