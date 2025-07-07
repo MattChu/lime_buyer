@@ -5,7 +5,7 @@ import L from "leaflet";
 import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
 
-function FruitMarker({ userLocation }) {
+function FruitMarker() {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
@@ -86,7 +86,7 @@ function FruitMarker({ userLocation }) {
         setShops(results);
       })
       .catch(console.error);
-  }, []);
+  }, [location]);
 
   return (
     <>

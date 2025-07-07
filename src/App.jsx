@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import MapView from "./pages/MapViewer";
+import InputLocation from "./components/InputLocation";
 
 function App() {
   const { user, setuser } = useContext(UserContext);
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/" element={<MapView />} />
+        <Route path="/inputlocation" element={<InputLocation />} />
       </Routes>
     </Router>
   );
