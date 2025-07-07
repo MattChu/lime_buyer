@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-import { CircleMarker } from "react-leaflet";
+
+import { useContext } from "react";
+import { LocationContext } from "../contexts/LocationContext";
 
 function FruitMarker({ userLocation }) {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
+
+  const { location, setLocation } = useContext(LocationContext);
 
   // handle submit function for reviews - # NOTE API ENDPOINT /REVIEWS IS FICTITIOUS AND WILL NEED TO BE MARRIED TO BE ENDPOINT #
   function handleSubmit(e) {
@@ -51,10 +55,10 @@ function FruitMarker({ userLocation }) {
   }
 
   useEffect(() => {
-    if (!userLocation) return;
+    if (!location) return;
 
     // Bounding box where the long and lat are set based on the user coordinates that are fed as a prop from mapviewer.
-    const boundingBox = getBoundingBox(userLocation);
+    const boundingBox = getBoundingBox(location);
 
     // Overpass query body that determines the corners of the bounding box (MUST ALWAYS BE S->W->N->E)
     const overpassQuery = `
