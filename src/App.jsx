@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import MapView from "./pages/MapViewer";
 
 function App() {
   const { user, setuser } = useContext(UserContext);
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/" element={<MapView />} />
       </Routes>
     </Router>
   );

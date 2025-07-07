@@ -41,7 +41,7 @@ function FruitMarker({ userLocation }) {
 
   // Bounding box function that sets the search area for our api query. Offset is the degree in which determines how big the box will be. 0.1 = 10-15km diameter.
 
-  function getBoundingBox([latitude, longitude], offset = 0.1) {
+  function getBoundingBox([latitude, longitude], offset = 0.3) {
     return {
       south: latitude - offset,
       west: longitude - offset,
@@ -119,10 +119,7 @@ function FruitMarker({ userLocation }) {
 
                 <label>
                   Rating:
-                  <select
-                    value={ratingValue}
-                    onChange={(e) => setRatingValue(Number(e.target.value))}
-                  >
+                  <select value={ratingValue} onChange={(e) => setRatingValue(Number(e.target.value))}>
                     <option value={0}>Select rating</option>
                     <option value={1}>1 - Tesco-Tier</option>
                     <option value={2}>2 - Edible</option>
