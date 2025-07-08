@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-
+import AddReview from "./AddReview";
 import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
+import { UserContext } from "../contexts/UserContext";
+
 
 function FruitMarker({ userLocation }) {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
+  const {user} = useContext(UserContext)
 
   const { location, setLocation } = useContext(LocationContext);
 
@@ -21,6 +24,7 @@ function FruitMarker({ userLocation }) {
       markerId: currentMarker.id,
       reviewText: review,
       rating: ratingValue,
+      userName: user.userName,
     };
 
     fetch("/api/reviews", {
@@ -124,30 +128,16 @@ function FruitMarker({ userLocation }) {
               <strong>{shop.name}</strong>
               <br />
               Type: {shop.type}
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Review:
-                  <textarea
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    placeholder="Write your review here"
-                  />
-                </label>
-
-                <label>
-                  Rating:
-                  <select value={ratingValue} onChange={(e) => setRatingValue(Number(e.target.value))}>
-                    <option value={0}>Select rating</option>
-                    <option value={1}>1 - Tesco-Tier</option>
-                    <option value={2}>2 - Edible</option>
-                    <option value={3}>3 - Mild-Zest</option>
-                    <option value={4}>4 - Juicyyy</option>
-                    <option value={5}>5 - LimeBuyer Certified</option>
-                  </select>
-                </label>
-
-                <button type="submit">Submit</button>
-              </form>
+              {user ? (
+                <AddReview
+                  onSubmit={handleSubmit}
+                  review={review}
+                  setReview={setReview}
+                  ratingValue={ratingValue}
+                  setRatingValue={setRatingValue}
+                />) : (
+                <p>Log in <a href="/login">here</a> to leave a review</p>
+              )}
             </Popup>
           </Marker>
         );
