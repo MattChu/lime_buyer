@@ -43,7 +43,7 @@
   border: 4px solid yellow;
   border-radius: 50%;
   box-shadow: 0 0 12px 4px limegreen;
-  animation: pulse 1.5s infinite;
+  animation: none;
 }
 
 @keyframes pulse {
