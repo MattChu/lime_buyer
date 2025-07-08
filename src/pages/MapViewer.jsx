@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 
 import { useContext, useEffect } from "react";
@@ -6,6 +7,7 @@ import { LocationContext } from "../contexts/LocationContext";
 
 import FruitMarker from "../components/FruitLocator";
 import InputLocation from "../components/InputLocation";
+import InputDistance from "../components/inputDistance";
 
 const ReCenterMap = ({ location }) => {
   const map = useMap();
@@ -23,6 +25,7 @@ function MapView() {
   return (
     <>
       <InputLocation />
+      <InputDistance />
       <MapContainer center={location} zoom={13} scrollWheelZoom={true} style={{ height: "100%" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
