@@ -1,6 +1,6 @@
 function AddReview({handleSubmit, review, setReview, ratingValue, setRatingValue}) {
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="review-form" onSubmit={handleSubmit}>
                 <label>
                   Review:
                   <textarea

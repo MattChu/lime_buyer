@@ -5,6 +5,7 @@ import AddReview from "./AddReview";
 import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
 import { UserContext } from "../contexts/UserContext";
+import ReviewList from "./ReviewList";
 
 function FruitMarker() {
   const [shops, setShops] = useState([]);
@@ -12,6 +13,7 @@ function FruitMarker() {
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
   const { user } = useContext(UserContext);
+  
 
   const { location, setLocation } = useContext(LocationContext);
 
@@ -69,7 +71,6 @@ out center;
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const results = data.elements.map((element) => {
           const name = element.tags.name?.toLowerCase() || "";
           let type = element.tags.shop || "other";
@@ -116,13 +117,16 @@ out center;
               <br />
               Type: {shop.type}
               {user ? (
-                <AddReview
-                  onSubmit={handleSubmit}
-                  review={review}
-                  setReview={setReview}
-                  ratingValue={ratingValue}
-                  setRatingValue={setRatingValue}
-                />
+                <>
+                  <AddReview
+                    onSubmit={handleSubmit}
+                    review={review}
+                    setReview={setReview}
+                    ratingValue={ratingValue}
+                    setRatingValue={setRatingValue}
+                  />
+                  {currentMarker && <ReviewList markerId={currentMarker.id} />}
+                </>
               ) : (
                 <p>
                   Log in <a href="/login">here</a> to leave a review
