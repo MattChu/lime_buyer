@@ -6,13 +6,12 @@ import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
 import { UserContext } from "../contexts/UserContext";
 
-
-function FruitMarker({ userLocation }) {
+function FruitMarker() {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
   const { location, setLocation } = useContext(LocationContext);
 
@@ -49,7 +48,7 @@ function FruitMarker({ userLocation }) {
 
   // Bounding box function that sets the search area for our api query. Offset is the degree in which determines how big the box will be. 0.1 = 10-15km diameter.
 
-  function getBoundingBox([latitude, longitude], offset = 0.3) {
+  function getBoundingBox([latitude, longitude], offset = 0.05) {
     return {
       south: latitude - offset,
       west: longitude - offset,
@@ -77,33 +76,33 @@ function FruitMarker({ userLocation }) {
   out body;
 `;
 
-      fetch("https://overpass-api.de/api/interpreter", {
-    method: "POST",
-    body: overpassQuery,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const results = data.elements.map((element) => {
-        const name = element.tags.name?.toLowerCase() || "";
-        let type = element.tags.shop || "other";
-
-        if (name.includes("tesco")) type = "tesco";
-        else if (name.includes("m&s")) type = "mands";
-        else if (name.includes("selfridges")) type = "selfridges";
-
-        return {
-          id: element.id,
-          lat: element.lat,
-          lon: element.lon,
-          name: element.tags.name || "unknown",
-          type,
-        };
-      });
-
-      setShops(results);
+    fetch("https://overpass-api.de/api/interpreter", {
+      method: "POST",
+      body: overpassQuery,
     })
-    .catch(console.error);
-}, [userLocation]);
+      .then((response) => response.json())
+      .then((data) => {
+        const results = data.elements.map((element) => {
+          const name = element.tags.name?.toLowerCase() || "";
+          let type = element.tags.shop || "other";
+
+          if (name.includes("tesco")) type = "tesco";
+          else if (name.includes("m&s")) type = "mands";
+          else if (name.includes("selfridges")) type = "selfridges";
+
+          return {
+            id: element.id,
+            lat: element.lat,
+            lon: element.lon,
+            name: element.tags.name || "unknown",
+            type,
+          };
+        });
+
+        setShops(results);
+      })
+      .catch(console.error);
+  }, [location]);
 
   return (
     <>
@@ -135,8 +134,11 @@ function FruitMarker({ userLocation }) {
                   setReview={setReview}
                   ratingValue={ratingValue}
                   setRatingValue={setRatingValue}
-                />) : (
-                <p>Log in <a href="/login">here</a> to leave a review</p>
+                />
+              ) : (
+                <p>
+                  Log in <a href="/login">here</a> to leave a review
+                </p>
               )}
             </Popup>
           </Marker>
