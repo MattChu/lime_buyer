@@ -46,34 +46,21 @@ function FruitMarker() {
       });
   }
 
-  // Bounding box function that sets the search area for our api query. Offset is the degree in which determines how big the box will be. 0.1 = 10-15km diameter.
-
-  function getBoundingBox([latitude, longitude], offset = 0.05) {
-    return {
-      south: latitude - offset,
-      west: longitude - offset,
-      north: latitude + offset,
-      east: longitude + offset,
-    };
-  }
+  const distance = 1500.0;
 
   useEffect(() => {
     if (!location) return;
 
-    // Bounding box where the long and lat are set based on the user coordinates that are fed as a prop from mapviewer.
-    const boundingBox = getBoundingBox(location);
-
-    // Overpass query body that determines the corners of the bounding box (MUST ALWAYS BE S->W->N->E)
     const overpassQuery = `
   [out:json][timeout:25];
-  (
-    node["shop"="greengrocer"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
-    node["shop"="supermarket"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
-    node["name"~"Tesco"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
-    node["name"~"M&S"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
-    node["name"~"Selfridges"](${boundingBox.south}, ${boundingBox.west}, ${boundingBox.north}, ${boundingBox.east});
-  );
-  out body;
+(
+  nwr(around:${distance},${location[0]},${location[1]})["shop"="supermarket"];
+  nwr(around:${distance},${location[0]},${location[1]})["shop"="greengrocer"];
+  nwr(around:${distance},${location[0]},${location[1]})["shop"="grocery"];
+  nwr(around:${distance},${location[0]},${location[1]})["shop"="convenience"];
+
+);
+out center;
 `;
 
     fetch("https://overpass-api.de/api/interpreter", {
@@ -82,6 +69,7 @@ function FruitMarker() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         const results = data.elements.map((element) => {
           const name = element.tags.name?.toLowerCase() || "";
           let type = element.tags.shop || "other";
@@ -92,8 +80,8 @@ function FruitMarker() {
 
           return {
             id: element.id,
-            lat: element.lat,
-            lon: element.lon,
+            lat: element.lat ?? element.center.lat,
+            lon: element.lon ?? element.center.lon,
             name: element.tags.name || "unknown",
             type,
           };
