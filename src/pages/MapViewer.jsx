@@ -7,7 +7,7 @@ import { LocationContext } from "../contexts/LocationContext";
 
 import FruitMarker from "../components/FruitLocator";
 import InputLocation from "../components/InputLocation";
-import InputDistance from "../components/inputDistance";
+import InputDistance from "../components/InputDistance";
 
 const ReCenterMap = ({ location }) => {
   const map = useMap();
