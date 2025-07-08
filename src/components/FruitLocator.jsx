@@ -45,7 +45,7 @@ function FruitMarker() {
 
   // Bounding box function that sets the search area for our api query. Offset is the degree in which determines how big the box will be. 0.1 = 10-15km diameter.
 
-  function getBoundingBox([latitude, longitude], offset = 0.3) {
+  function getBoundingBox([latitude, longitude], offset = 0.05) {
     return {
       south: latitude - offset,
       west: longitude - offset,
