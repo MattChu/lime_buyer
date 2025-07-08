@@ -1,21 +1,30 @@
 import { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+
 import AddReview from "./AddReview";
 import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
 import { UserContext } from "../contexts/UserContext";
+
 import ReviewList from "./ReviewList";
+import { DistanceContext } from "../contexts/DistanceContext";
+import { fetchOverpassShops } from "../utils/fetchOverpassShops";
+
 
 function FruitMarker() {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
-  const { user } = useContext(UserContext);
-  
 
-  const { location, setLocation } = useContext(LocationContext);
+  const { user } = useContext(UserContext);
+
+  const { location } = useContext(LocationContext);
+  const { distance } = useContext(DistanceContext);
+
+  const [isFetchingShops, setIsFetchingShops] = useState(false);
+  const [isErrorFetchShops, setIsErrorFetchShops] = useState(false);
 
   // handle submit function for reviews - # NOTE API ENDPOINT /REVIEWS IS FICTITIOUS AND WILL NEED TO BE MARRIED TO BE ENDPOINT #
   function handleSubmit(e) {
@@ -48,50 +57,24 @@ function FruitMarker() {
       });
   }
 
-  const distance = 1500.0;
-
   useEffect(() => {
     if (!location) return;
 
-    const overpassQuery = `
-  [out:json][timeout:25];
-(
-  nwr(around:${distance},${location[0]},${location[1]})["shop"="supermarket"];
-  nwr(around:${distance},${location[0]},${location[1]})["shop"="greengrocer"];
-  nwr(around:${distance},${location[0]},${location[1]})["shop"="grocery"];
-  nwr(around:${distance},${location[0]},${location[1]})["shop"="convenience"];
-
-);
-out center;
-`;
-
-    fetch("https://overpass-api.de/api/interpreter", {
-      method: "POST",
-      body: overpassQuery,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const results = data.elements.map((element) => {
-          const name = element.tags.name?.toLowerCase() || "";
-          let type = element.tags.shop || "other";
-
-          if (name.includes("tesco")) type = "tesco";
-          else if (name.includes("m&s")) type = "mands";
-          else if (name.includes("selfridges")) type = "selfridges";
-
-          return {
-            id: element.id,
-            lat: element.lat ?? element.center.lat,
-            lon: element.lon ?? element.center.lon,
-            name: element.tags.name || "unknown",
-            type,
-          };
-        });
+    const asyncUseEffect = async () => {
+      setIsFetchingShops(true);
+      setIsErrorFetchShops(false);
+      try {
+        const results = await fetchOverpassShops(distance, location);
 
         setShops(results);
-      })
-      .catch(console.error);
-  }, [location]);
+      } catch (err) {
+        setIsErrorFetchShops(true);
+      } finally {
+        setIsFetchingShops(false);
+      }
+    };
+    asyncUseEffect();
+  }, [location, distance]);
 
   return (
     <>
