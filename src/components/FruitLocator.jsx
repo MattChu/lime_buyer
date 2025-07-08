@@ -6,8 +6,11 @@ import AddReview from "./AddReview";
 import { useContext } from "react";
 import { LocationContext } from "../contexts/LocationContext";
 import { UserContext } from "../contexts/UserContext";
+
+import ReviewList from "./ReviewList";
 import { DistanceContext } from "../contexts/DistanceContext";
 import { fetchOverpassShops } from "../utils/fetchOverpassShops";
+
 
 function FruitMarker() {
   const [shops, setShops] = useState([]);
@@ -16,6 +19,7 @@ function FruitMarker() {
   const [currentMarker, setCurrentMarker] = useState(null);
 
   const { user } = useContext(UserContext);
+
   const { location } = useContext(LocationContext);
   const { distance } = useContext(DistanceContext);
 
@@ -61,6 +65,7 @@ function FruitMarker() {
       setIsErrorFetchShops(false);
       try {
         const results = await fetchOverpassShops(distance, location);
+
         setShops(results);
       } catch (err) {
         setIsErrorFetchShops(true);
@@ -95,13 +100,16 @@ function FruitMarker() {
               <br />
               Type: {shop.type}
               {user ? (
-                <AddReview
-                  onSubmit={handleSubmit}
-                  review={review}
-                  setReview={setReview}
-                  ratingValue={ratingValue}
-                  setRatingValue={setRatingValue}
-                />
+                <>
+                  <AddReview
+                    onSubmit={handleSubmit}
+                    review={review}
+                    setReview={setReview}
+                    ratingValue={ratingValue}
+                    setRatingValue={setRatingValue}
+                  />
+                  {currentMarker && <ReviewList markerId={currentMarker.id} />}
+                </>
               ) : (
                 <p>
                   Log in <a href="/login">here</a> to leave a review
