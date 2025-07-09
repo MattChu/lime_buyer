@@ -197,3 +197,18 @@ li a:hover {
   margin: 0;
   padding: 0;
 }
+
+.popup-title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.review-list{
+  margin-top:15px;
+}
+
+.review-list h4{
+  text-align: center;
+}

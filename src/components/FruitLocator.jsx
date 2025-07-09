@@ -17,6 +17,7 @@ function FruitMarker() {
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
+  const [formVisibleForMarkerId, setFormVisibleForMarkerId] = useState(null)
 
   const { user } = useContext(UserContext);
 
@@ -92,26 +93,57 @@ function FruitMarker() {
             position={[shop.lat, shop.lon]}
             icon={glowingIcon}
             eventHandlers={{
-              click: () => setCurrentMarker(shop),
+              click: () => {
+                setCurrentMarker(shop); 
+                setFormVisibleForMarkerId(null);
+              },
             }}
           >
             <Popup>
-              <strong>{shop.name}</strong>
+              <div className="popup-title">
+                <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
+                <strong>{shop.name}</strong>
+                <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
+                </div>
               <br />
-              Type: {shop.type}
+                Type: {shop.type}
+                
+              
+
+              {currentMarker && <ReviewList markerId={shop.id} />}
+
               {user ? (
                 <>
-                  <AddReview
-                    onSubmit={handleSubmit}
-                    review={review}
-                    setReview={setReview}
-                    ratingValue={ratingValue}
-                    setRatingValue={setRatingValue}
-                  />
-                  {currentMarker && <ReviewList markerId={currentMarker.id} />}
+                  {formVisibleForMarkerId===shop.id ? (
+                    <>
+                      <AddReview
+                        onSubmit={handleSubmit}
+                        review={review}
+                        setReview={setReview}
+                        ratingValue={ratingValue}
+                        setRatingValue={setRatingValue}
+                      />
+                      <button
+                        onClick={() => setFormVisibleForMarkerId(null)}
+                        style={{ marginTop: "0.5rem" }}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setFormVisibleForMarkerId(shop.id)
+                        }}
+                      style={{ marginTop: "0.5rem" }}
+                    >
+                      Write a review
+                    </button>
+                  )}
                 </>
               ) : (
-                <p>
+                <p style={{ marginTop: "0.5rem" }}>
                   Log in <a href="/login">here</a> to leave a review
                 </p>
               )}
