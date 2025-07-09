@@ -3,12 +3,15 @@ import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
 import AddReview from "./AddReview";
+import ReviewList from "./ReviewList";
+
 import { useContext } from "react";
+
+import { DistanceContext } from "../contexts/DistanceContext";
 import { LocationContext } from "../contexts/LocationContext";
 import { UserContext } from "../contexts/UserContext";
+import { LoadingAndErrorContext } from "../contexts/LoadingErrorContext";
 
-import ReviewList from "./ReviewList";
-import { DistanceContext } from "../contexts/DistanceContext";
 import { fetchOverpassShops } from "../utils/fetchOverpassShops";
 
 function FruitMarker() {
@@ -21,9 +24,7 @@ function FruitMarker() {
 
   const { location } = useContext(LocationContext);
   const { distance } = useContext(DistanceContext);
-
-  const [isFetchingShops, setIsFetchingShops] = useState(false);
-  const [isErrorFetchShops, setIsErrorFetchShops] = useState(false);
+  const { setIsLoading, setIsError } = useContext(LoadingAndErrorContext);
 
   // handle submit function for reviews - # NOTE API ENDPOINT /REVIEWS IS FICTITIOUS AND WILL NEED TO BE MARRIED TO BE ENDPOINT #
   function handleSubmit(e) {
@@ -60,16 +61,15 @@ function FruitMarker() {
     if (!location) return;
 
     const asyncUseEffect = async () => {
-      setIsFetchingShops(true);
-      setIsErrorFetchShops(false);
+      setIsError(false);
+      setIsLoading(true);
       try {
-        const results = await fetchOverpassShops(2000, [53.6898, -1.4866]);
-
+        const results = await fetchOverpassShops(distance, location);
         setShops(results);
       } catch (err) {
-        setIsErrorFetchShops(true);
+        setIsError(true);
       } finally {
-        setIsFetchingShops(false);
+        setIsLoading(false);
       }
     };
     asyncUseEffect();

@@ -16,7 +16,6 @@ function InputDistance() {
         <option value="500.00">500m</option>
         <option value="1000.00">1km</option>
         <option value="2000.00">2km</option>
-        <option value="5000.00">5km</option>
       </select>
     </form>
   );
