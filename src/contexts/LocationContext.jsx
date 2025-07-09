@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 export const LocationContext = createContext();
 
 export const LocationProvider = ({ children }) => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState([53.6898, -1.4866]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -12,10 +12,9 @@ export const LocationProvider = ({ children }) => {
       },
       (error) => {
         console.warn("Geolocation error:", error);
-        setLocation([53.4808, -2.2426]);
+        setLocation([53.6898, -1.4866]);
       }
     );
   }, []);
-
   return <LocationContext.Provider value={{ location, setLocation }}>{children}</LocationContext.Provider>;
 };
