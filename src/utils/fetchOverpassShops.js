@@ -11,7 +11,7 @@ export async function fetchOverpassShops(distance, [lat, lon]) {
   out center;
   `;
 
-  const res = await fetch("https://overpass-api.de/ai/interpreter", {
+  const res = await fetch("https://overpass-api.de/api/interpreter", {
     method: "POST",
     body: overpassQuery,
   });
