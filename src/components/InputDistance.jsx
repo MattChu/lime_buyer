@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DistanceContext } from "../contexts/DistanceContext";
 
 function InputDistance() {
-  const { setDistance } = useContext(DistanceContext);
+  const { distance, setDistance } = useContext(DistanceContext);
   const handleChange = (e) => {
     setDistance(parseFloat(e.target.value));
   };
@@ -11,11 +11,11 @@ function InputDistance() {
   return (
     <form>
       <label htmlFor="distance">Set Max Distance:</label>
-      <select onChange={handleChange} name="distance" id="distance">
-        <option value="100.00">100m</option>
-        <option value="500.00">500m</option>
-        <option value="1000.00">1km</option>
-        <option value="2000.00">2km</option>
+      <select onChange={handleChange} name="distance" id="distance" value={distance}>
+        <option value={100.0}>100m</option>
+        <option value={500.0}>500m</option>
+        <option value={1000.0}>1km</option>
+        <option value={2000.0}>2km</option>
       </select>
     </form>
   );

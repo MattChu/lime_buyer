@@ -11,7 +11,7 @@ import InputLocation from "./components/InputLocation";
 import Error from "./pages/Error";
 
 function App() {
-  const { user, setuser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <Router>
       <Routes>
