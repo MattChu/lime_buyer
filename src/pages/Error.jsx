@@ -11,7 +11,7 @@ function Error() {
     <div>
       <h2>Welcome to ERROR</h2>
       <hr />
-      <img src="/simpsonsLemon.gif" alt="simpons give of man eating lemon" />
+      <img src="simpsonsLemon.gif" alt="simpons gif of man eating lemon" />
       <hr />
       <button onClick={retry}>RETRY</button>
     </div>

@@ -14,16 +14,34 @@ import FruitMarker from "../components/FruitLocator";
 import InputLocation from "../components/InputLocation";
 import InputDistance from "../components/InputDistance";
 import { PropagateLoader } from "react-spinners";
+import { DistanceContext } from "../contexts/DistanceContext";
 
-const ReCenterMap = ({ location }) => {
+const ReFocusMap = ({ location, zoom }) => {
   const map = useMap();
   useEffect(() => {
-    map.setView(location, 13);
-  }, [location]);
+    map.setView(location, zoom);
+  }, [location, zoom]);
+};
+
+const getZoomByDistance = (distance) => {
+  switch (distance) {
+    case 100:
+      return 17;
+    case 500:
+      return 16;
+    case 1000:
+      return 15;
+    case 2000:
+      return 14;
+    default:
+      return 14;
+  }
 };
 
 function MapView() {
   const { location } = useContext(LocationContext);
+  const { distance } = useContext(DistanceContext);
+  const zoom = getZoomByDistance(distance);
   const { isLoading, isError } = useContext(LoadingAndErrorContext);
   return (
     <>
@@ -48,12 +66,12 @@ function MapView() {
           <PropagateLoader color="green" />
         </div>
       )}
-      <MapContainer center={location} zoom={13} scrollWheelZoom={true} style={{ height: "100%" }}>
+      <MapContainer center={location} zoom={zoom} scrollWheelZoom={true} style={{ height: "100%" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <ReCenterMap location={location} />
+        <ReFocusMap location={location} zoom={zoom} distance={distance} />
         <Marker position={location}>
           <Popup>You are here</Popup>
         </Marker>
