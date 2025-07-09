@@ -11,7 +11,6 @@ import ReviewList from "./ReviewList";
 import { DistanceContext } from "../contexts/DistanceContext";
 import { fetchOverpassShops } from "../utils/fetchOverpassShops";
 
-
 function FruitMarker() {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
@@ -64,7 +63,7 @@ function FruitMarker() {
       setIsFetchingShops(true);
       setIsErrorFetchShops(false);
       try {
-        const results = await fetchOverpassShops(distance, location);
+        const results = await fetchOverpassShops(2000, [53.6898, -1.4866]);
 
         setShops(results);
       } catch (err) {

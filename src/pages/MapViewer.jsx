@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, ScaleControl } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
 
@@ -26,12 +26,13 @@ function MapView() {
     <>
       <InputLocation />
       <InputDistance />
-      <MapContainer center={location} zoom={13} scrollWheelZoom={true} style={{ height: "100%" }}>
+      <MapContainer center={location} zoom={13} scrollWheelZoom={true} style={{ height: "80%" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ReCenterMap location={location} />
+        <ScaleControl />
         <Marker position={location}>
           <Popup>You are here</Popup>
         </Marker>
