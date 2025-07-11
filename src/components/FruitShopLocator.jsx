@@ -16,6 +16,7 @@ import { fetchOverpassShops } from "../utils/fetchOverpassShops";
 
 function FruitShopLocator() {
   const [shops, setShops] = useState([]);
+  const [fruit, setFruit] = useState([]); ////
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
@@ -30,15 +31,16 @@ function FruitShopLocator() {
   // handle submit function for reviews - # NOTE API ENDPOINT /REVIEWS IS FICTITIOUS AND WILL NEED TO BE MARRIED TO BE ENDPOINT #
   function handleSubmit(e) {
     e.preventDefault();
-
+    //////////////////////////// fruit rating username
     const reviewInfo = {
       markerId: currentMarker.id,
-      reviewText: review,
+      fruit: fruit, ////
+      body: review,
       rating: ratingValue,
       userName: user.userName,
     };
 
-    fetch("/api/reviews", {
+    fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reviewInfo),
@@ -57,7 +59,7 @@ function FruitShopLocator() {
         alert("error saving review");
       });
   }
-
+  //////////////////////////////
   useEffect(() => {
     if (!location) return;
 
@@ -100,9 +102,17 @@ function FruitShopLocator() {
           >
             <Popup>
               <div className="popup-title">
-                <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
+                <img
+                  src="/images/lime-logo.png"
+                  alt="Logo"
+                  style={{ width: "50px", height: "50px" }}
+                />
                 <strong>{shop.name}</strong>
-                <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
+                <img
+                  src="/images/lime-logo.png"
+                  alt="Logo"
+                  style={{ width: "50px", height: "50px" }}
+                />
               </div>
               <br />
               Type: {shop.type}
@@ -114,11 +124,16 @@ function FruitShopLocator() {
                       <AddReview
                         onSubmit={handleSubmit}
                         review={review}
+                        fruit={fruit} ////
+                        setFruit={setFruit} ////
                         setReview={setReview}
                         ratingValue={ratingValue}
                         setRatingValue={setRatingValue}
                       />
-                      <button onClick={() => setFormVisibleForMarkerId(null)} style={{ marginTop: "0.5rem" }}>
+                      <button
+                        onClick={() => setFormVisibleForMarkerId(null)}
+                        style={{ marginTop: "0.5rem" }}
+                      >
                         Cancel
                       </button>
                     </>
