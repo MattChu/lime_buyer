@@ -5,16 +5,13 @@ import "leaflet/dist/leaflet.css";
 
 import { useContext, useEffect } from "react";
 
-import { Navigate } from "react-router-dom";
-
 import { LocationContext } from "../contexts/LocationContext";
-import { LoadingAndErrorContext } from "../contexts/LoadingErrorContext";
+import { DistanceContext } from "../contexts/DistanceContext";
 
-import FruitMarker from "../components/FruitLocator";
+import FruitShopLocator from "../components/FruitShopLocator";
 import InputLocation from "../components/InputLocation";
 import InputDistance from "../components/InputDistance";
-import { PropagateLoader } from "react-spinners";
-import { DistanceContext } from "../contexts/DistanceContext";
+import LoaderError from "../components/LoaderError";
 
 const ReFocusMap = ({ location, zoom }) => {
   const map = useMap();
@@ -42,30 +39,11 @@ function MapView() {
   const { location } = useContext(LocationContext);
   const { distance } = useContext(DistanceContext);
   const zoom = getZoomByDistance(distance);
-  const { isLoading, isError } = useContext(LoadingAndErrorContext);
   return (
     <>
       <InputLocation />
       <InputDistance />
-      {isError && <Navigate to="/lemons" />}
-      {isLoading && (
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 1000,
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(255, 255, 255, 0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <PropagateLoader color="green" />
-        </div>
-      )}
+      <LoaderError />
       <MapContainer center={location} zoom={zoom} scrollWheelZoom={true} style={{ height: "100%" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -75,7 +53,7 @@ function MapView() {
         <Marker position={location}>
           <Popup>You are here</Popup>
         </Marker>
-        <FruitMarker />
+        <FruitShopLocator />
       </MapContainer>
     </>
   );
