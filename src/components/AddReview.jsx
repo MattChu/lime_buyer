@@ -17,7 +17,7 @@ function AddReview({ shop }) {
       body: review,
       rating: ratingValue,
       store_id: shop.id,
-      uid: user.uid,
+      uid: "1",
     };
 
     fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
