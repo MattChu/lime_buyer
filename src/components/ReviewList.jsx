@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-function ReviewList({ markerId }) {
+function ReviewList({ shop }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!markerId) return;
+    if (!shop.id) return;
     // ***MUST CHANGE ENDPOINT TO ACTUAL ENDPOINT WHEN AVAILABLE FROM BE***
-    fetch(`https://limebuyer2025-be.onrender.com/api/reviews/${markerId}`)
+    fetch(`https://limebuyer2025-be.onrender.com/api/reviews/${shop.id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Fetching reviews failed");
         return res.json();
@@ -20,7 +20,7 @@ function ReviewList({ markerId }) {
         setReviews([]);
       })
       .finally(() => setIsLoading(false));
-  }, [markerId]);
+  }, [shop.id]);
 
   if (loading) return <p>Loading reviews</p>;
 

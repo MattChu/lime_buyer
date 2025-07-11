@@ -9,7 +9,6 @@ function AddReview({ shop }) {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
 
   const { user } = useContext(UserContext);
-  console.log(user);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,10 +17,8 @@ function AddReview({ shop }) {
       body: review,
       rating: ratingValue,
       store_id: shop.id,
-      uid: "1",
+      uid: user.uid,
     };
-
-    console.log(newReview);
 
     fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
       method: "POST",

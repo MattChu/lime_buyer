@@ -17,7 +17,7 @@ function FruitShopPopUp({ shop }) {
       </div>
       <br />
       Type: {shop.type}
-      <ReviewList markerId={shop.id} />
+      <ReviewList shop={shop} />
       {user ? (
         <AddReview shop={shop} />
       ) : (
