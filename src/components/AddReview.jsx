@@ -9,14 +9,15 @@ function AddReview({ shop }) {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
 
   const { user } = useContext(UserContext);
+  console.log(user);
 
   function handleSubmit(e) {
     e.preventDefault();
     const newReview = {
-      fruit: "Lime",
-      body: "limey",
-      rating: 5,
-      store_id: "85712060",
+      fruit: selectedFruit,
+      body: review,
+      rating: ratingValue,
+      store_id: shop.id,
       uid: "1",
     };
 
