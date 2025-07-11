@@ -7,23 +7,18 @@ function ReviewList({ markerId }) {
   useEffect(() => {
     if (!markerId) return;
     // ***MUST CHANGE ENDPOINT TO ACTUAL ENDPOINT WHEN AVAILABLE FROM BE***
-    fetch(`/api/reviews/${markerId}`)
+    fetch(`https://limebuyer2025-be.onrender.com/api/reviews/${markerId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Fetching reviews failed");
         return res.json();
       })
       .then((data) => {
-        setReviews(data);
+        console.log(data)
+        setReviews(data.reviews);
       })
       .catch((err) => {
         console.error(err);
-        setReviews([
-          {
-            username: "Sample user",
-            body: "Sample review text",
-            rating: 3,
-          },
-        ]);
+        setReviews([]);
       })
       .finally(() => setIsLoading(false));
   }, [markerId]);
@@ -43,11 +38,11 @@ function ReviewList({ markerId }) {
               {review.avatar_url && (
                 <img
                   src={review.avatar_url}
-                  alt={review.username}
+                  alt="avatar missing"
                   className="avatar"
                 />
               )}
-              <strong>{review.username}</strong>
+              <strong> <br />{review.username}</strong>
             </div>
 
             <br />
