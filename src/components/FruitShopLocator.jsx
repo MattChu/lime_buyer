@@ -14,12 +14,12 @@ import { LoadingAndErrorContext } from "../contexts/LoadingErrorContext";
 
 import { fetchOverpassShops } from "../utils/fetchOverpassShops";
 
-function FruitMarker() {
+function FruitShopLocator() {
   const [shops, setShops] = useState([]);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   const [currentMarker, setCurrentMarker] = useState(null);
-  const [formVisibleForMarkerId, setFormVisibleForMarkerId] = useState(null)
+  const [formVisibleForMarkerId, setFormVisibleForMarkerId] = useState(null);
 
   const { user } = useContext(UserContext);
 
@@ -93,7 +93,7 @@ function FruitMarker() {
             icon={glowingIcon}
             eventHandlers={{
               click: () => {
-                setCurrentMarker(shop); 
+                setCurrentMarker(shop);
                 setFormVisibleForMarkerId(null);
               },
             }}
@@ -103,17 +103,13 @@ function FruitMarker() {
                 <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
                 <strong>{shop.name}</strong>
                 <img src="/images/lime-logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
-                </div>
+              </div>
               <br />
-                Type: {shop.type}
-                
-              
-
+              Type: {shop.type}
               {currentMarker && <ReviewList markerId={shop.id} />}
-
               {user ? (
                 <>
-                  {formVisibleForMarkerId===shop.id ? (
+                  {formVisibleForMarkerId === shop.id ? (
                     <>
                       <AddReview
                         onSubmit={handleSubmit}
@@ -122,19 +118,16 @@ function FruitMarker() {
                         ratingValue={ratingValue}
                         setRatingValue={setRatingValue}
                       />
-                      <button
-                        onClick={() => setFormVisibleForMarkerId(null)}
-                        style={{ marginTop: "0.5rem" }}
-                      >
+                      <button onClick={() => setFormVisibleForMarkerId(null)} style={{ marginTop: "0.5rem" }}>
                         Cancel
                       </button>
                     </>
                   ) : (
                     <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setFormVisibleForMarkerId(shop.id)
-                        }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setFormVisibleForMarkerId(shop.id);
+                      }}
                       style={{ marginTop: "0.5rem" }}
                     >
                       Write a review
@@ -154,4 +147,4 @@ function FruitMarker() {
   );
 }
 
-export default FruitMarker;
+export default FruitShopLocator;
