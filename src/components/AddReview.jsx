@@ -12,18 +12,20 @@ function AddReview({ shop }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    const reviewInfo = {
-      markerId: shop.id,
-      reviewText: review,
-      rating: ratingValue,
-      userName: user.userName,
+    const newReview = {
+      fruit: "Lime",
+      body: "limey",
+      rating: 5,
+      store_id: "85712060",
+      uid: "1",
     };
 
-    fetch("/api/reviews", {
+    console.log(newReview);
+
+    fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(reviewInfo),
+      body: JSON.stringify(newReview),
     })
       .then((res) => {
         if (!res.ok) {
