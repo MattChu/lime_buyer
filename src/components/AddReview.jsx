@@ -8,37 +8,31 @@ function AddReview({ shop }) {
   const [ratingValue, setRatingValue] = useState(0);
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
   const { user } = useContext(UserContext);
+  
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const auth = getAuth();
-    const firebaseUser = auth.currentUser;
-
-    if (!firebaseUser) {
-      alert("You must be logged in to submit a review.");
-      return;
-    }
-
+    const auth = getAuth()
+    const firebaseUser = auth.currentUser
+    
     firebaseUser
       .getIdToken()
       .then((token) => {
-        const newReview = {
-          fruit: selectedFruit,
-          body: review,
-          rating: ratingValue,
-          store_id: shop.id,
-        };
-
+      const newReview = {
+      fruit: selectedFruit,
+      body: review,
+      rating: ratingValue,
+        store_id: shop.id,
+      }
         return fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
-          method: "POST",
+      method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newReview),
-        });
-      })
+             Authorization: `Bearer ${token}`
+       },
+      body: JSON.stringify(newReview),
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("reviewing failed");
@@ -47,34 +41,27 @@ function AddReview({ shop }) {
       })
       .then(() => {
         alert("review saved");
-        setSelectedFruit("");
-        setReview("");
-        setRatingValue(0);
-        setIsReviewFormVisible(false);
       })
       .catch((error) => {
         console.error(error);
         alert("error saving review");
       });
+        
+    })
+    ;
+
+    
   }
   return isReviewFormVisible ? (
     <>
       <form className="review-form" onSubmit={handleSubmit}>
         <label>
           Review:
-          <textarea
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
-            placeholder="Write your review here"
-          />
+          <textarea value={review} onChange={(e) => setReview(e.target.value)} placeholder="Write your review here" />
         </label>
         <label>
           Fruit:
-          <select
-            value={selectedFruit}
-            onChange={(e) => setSelectedFruit(e.target.value)}
-            required
-          >
+          <select value={selectedFruit} onChange={(e) => setSelectedFruit(e.target.value)} required>
             <option value="">Select a fruit</option>
             <option value="Lime">Lime</option>
             <option value="Lemon">Lemon</option>
@@ -84,10 +71,7 @@ function AddReview({ shop }) {
         </label>
         <label>
           Rating:
-          <select
-            value={ratingValue}
-            onChange={(e) => setRatingValue(Number(e.target.value))}
-          >
+          <select value={ratingValue} onChange={(e) => setRatingValue(Number(e.target.value))}>
             <option value={0}>Select rating</option>
             <option value={1}>1 - Tesco-Tier</option>
             <option value={2}>2 - Edible</option>
