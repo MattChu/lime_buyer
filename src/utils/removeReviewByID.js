@@ -1,6 +1,6 @@
 export async function postUser(review_id) {
   const response = await fetch(
-    `https://limebuyer2025-be.onrender.com/reviews/${review_id}`,
+    `https://limebuyer2025-be-fug6.onrender.com/reviews/${review_id}`,
     {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

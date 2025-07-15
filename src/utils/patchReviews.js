@@ -1,6 +1,6 @@
 export async function patchReview() {
   const response = await fetch(
-    `https://limebuyer2025-be.onrender.com/api/reviews/${review_id}`,
+    `https://limebuyer2025-be-fug6.onrender.com/api/reviews/${review_id}`,
     {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

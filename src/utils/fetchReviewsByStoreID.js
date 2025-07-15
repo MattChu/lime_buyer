@@ -1,6 +1,6 @@
 export async function fetchReviewsByStore(store_id) {
   const res = await fetch(
-    `https://limebuyer2025-be.onrender.com/api/reviews/${store_id}`
+    `https://limebuyer2025-be-fug6.onrender.com/api/reviews/${store_id}`
   );
   if (!res.ok) {
     const err = new Error("Failed to fetch store reviews");

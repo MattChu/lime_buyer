@@ -1,6 +1,6 @@
 export async function postUser(uid, username) {
   const response = await fetch(
-    `https://limebuyer2025-be.onrender.com/api/users`,
+    `https://limebuyer2025-be-fug6.onrender.com/api/users`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,6 +1,6 @@
 export async function getUser(uid) {
   const res = await fetch(
-    `https://limebuyer2025-be.onrender.com/api/users/${uid}`
+    `https://limebuyer2025-be-fug6.onrender.com/api/users/${uid}`
   );
   if (!res.ok) {
     const err = new Error("Failed to fetch user");

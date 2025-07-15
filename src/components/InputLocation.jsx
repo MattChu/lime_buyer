@@ -29,10 +29,10 @@ function InputLocation() {
   };
 
   return (
-    <form onSubmit={handleSearch}>
-      <input type="text" placeholder="Enter postcode" value={postCode} onChange={(e) => setPostCode(e.target.value)} />
-      <button type="submit">Enter</button>
-      {locationError && <p style={{ color: "red" }}>{locationError}</p>}
+    <form onSubmit={handleSearch} className="location-form">
+      <input className="location-input"type="text" placeholder="Enter postcode" value={postCode} onChange={(e) => setPostCode(e.target.value)} />
+      <button type="submit" className="location-button">Enter</button>
+      {locationError && <p className="location-error">{locationError}</p>}
     </form>
   );
 }

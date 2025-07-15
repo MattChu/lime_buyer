@@ -1,6 +1,6 @@
 export async function postReview() {
   const response = await fetch(
-    `https://limebuyer2025-be.onrender.com/api/reviews`,
+    `https://limebuyer2025-be-fug6.onrender.com/api/reviews`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
