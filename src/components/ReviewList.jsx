@@ -6,30 +6,29 @@ function ReviewList({ reviews, loading }) {
 
   if (!reviews.length) return <p>No reviews so far!</p>;
   return (
-    <div className="review-list">
-      <h4>Reviews</h4>
-      <ul>
-        {reviews.map((review, index) => (
-          <li key={index}>
-            <div className="review-header">
-              {review.avatar_url && <img src={review.avatar_url} alt="avatar missing" className="avatar" />}
-              <strong>
-                {" "}
-                <br />
-                {review.username}
-              </strong>
+  <div className="review-list">
+    <h4>Reviews</h4>
+    <ul>
+      {reviews.map((review, index) => (
+        <li key={index} className="review-item">
+          <div className="review-header">
+            <img
+              src={review.avatar_url || "https://via.placeholder.com/40"}
+              alt={`${review.username}'s avatar`}
+              className="avatar"
+            />
+            <div className="review-meta">
+              <strong>{review.username}</strong>
+              <small>{new Date(review.published).toLocaleDateString("en-GB")}</small>
             </div>
+          </div>
 
-            <br />
-            <span>{review.body}</span>
-            <br />
-            <em>{review.rating} / 5</em>
-            <br />
-            <small>{new Date(review.published).toLocaleDateString()}</small>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+          <p className="review-body">{review.body}</p>
+          <em className="review-rating">🍋 {review.rating} / 5</em>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 }
 export default ReviewList;
