@@ -129,7 +129,7 @@ li a:hover {
   padding: 1.5rem;
   background: #f5f8fa;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
 
@@ -187,10 +187,10 @@ li a:hover {
   border-bottom: 1px solid #ddd;
 }
 
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   min-width: 250px;
   max-width: 350px;
-  padding:10px 15px;
+  padding: 10px 15px;
 }
 
 .leaflet-popup-content {
@@ -198,17 +198,29 @@ li a:hover {
   padding: 0;
 }
 
-.popup-title{
+.popup-title {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
 
-.review-list{
-  margin-top:15px;
+.review-list {
+  margin-top: 15px;
 }
 
-.review-list h4{
+.review-list h4 {
   text-align: center;
+}
+
+.dashUserInfo {
+  width: 350px;
+  height: 700px;
+  border: 10px solid greenyellow;
+  border-style: solid;
+  padding: 40px;
+  margin: 15px;
+}
+
+.dashReviewInfo {
 }
