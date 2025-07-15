@@ -1,13 +1,13 @@
-// export async function postUser(uid, username) {
-//   const response = await fetch(`/api/users`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ uid: uid, username: username }),
-//   });
+export async function postUser(review_id) {
+  const response = await fetch(
+    `https://limebuyer2025-be.onrender.com/reviews/${review_id}`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
-//   if (!response.ok) {
-//     throw new Error("failed to create user");
-//   }
-
-//   return response.json();
-// }
+  if (!response.ok) {
+    throw new Error("failed to delete review");
+  }
+}

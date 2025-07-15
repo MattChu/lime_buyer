@@ -23,13 +23,15 @@ function Dashboard() {
         {auth.currentUser.uid}
       </p>
       <hr />
-      <button onClick={logout}>Log Out</button>
+
       <div className="dashUserInfo">
+        <img src={`${auth.currentUser.avatar_url}`} alt="avatar"></img>
         <p>Email: {auth.currentUser.email}</p>
         <p>Username: {auth.currentUser.username}</p>
+        <button onClick={logout}>Log Out</button>
       </div>
       <div className="dashUserReviews">
-        <p>{}</p>
+        <p>reviews here</p>
       </div>
     </div>
   );

@@ -216,11 +216,24 @@ li a:hover {
 .dashUserInfo {
   width: 350px;
   height: 700px;
-  border: 10px solid greenyellow;
+  border: 10px solid lightblue;
+  border-radius: 10px;
+  background-color: lightblue;
   border-style: solid;
   padding: 40px;
-  margin: 15px;
+  margin: 25px;
+  position: fixed;
+  float: left;
 }
 
-.dashReviewInfo {
+.dashUserReviews {
+  width: 800px;
+  height: 700px;
+  border: 10px solid lightblue;
+  border-radius: 10px;
+  background-color: lightblue;
+  border-style: solid;
+  padding: 40px;
+  margin: 25px;
+  float: right;
 }
