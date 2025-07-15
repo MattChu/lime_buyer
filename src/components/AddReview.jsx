@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { getAuth } from "firebase/auth";
 
-function AddReview({ shop }) {
+function AddReview({ shop, onNewReview }) {
   const [selectedFruit, setSelectedFruit] = useState("");
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
@@ -25,7 +25,7 @@ function AddReview({ shop }) {
       rating: ratingValue,
         store_id: shop.id,
       }
-        return fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
+        return fetch(`https://limebuyer2025-be-fug6.onrender.com/api/reviews`, {
       method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,15 @@ function AddReview({ shop }) {
       })
       .then(() => {
         alert("review saved");
+        return fetch(`https://limebuyer2025-be-fug6.onrender.com/api/reviews/${shop.id}`)
       })
+          .then((res) => {
+            if (!res.ok) throw new Error("failed to fetch updated reviews");
+            return res.json()
+          })
+          .then((updatedReviews) => {
+            onNewReview(updatedReviews.reviews)
+          })
       .catch((error) => {
         console.error(error);
         alert("error saving review");
