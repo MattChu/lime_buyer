@@ -4,11 +4,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial !important;
 }
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -20,10 +19,9 @@
 }
 
 .leaflet-container {
-  margin-top: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  overflow: hidden;
 }
 
 .auth-form {
@@ -89,7 +87,6 @@ body,
   height: 100%;
 }
 
-
 li a {
   display: block;
   color: white;
@@ -110,6 +107,7 @@ li a:hover {
 
 #map {
   height: 100%;
+  width: 100%;
 }
 
 .review-form {
@@ -173,7 +171,7 @@ li a:hover {
   flex-direction: column;
   gap: 0.5rem;
   background-color: #fdfdfd;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 .review-list li {
   padding: 0.5rem 0;
@@ -207,13 +205,13 @@ li a:hover {
   margin-bottom: 1rem;
 }
 
-.review-header{
+.review-header {
   display: flex;
   align-items: center;
-  gap:1rem;
+  gap: 1rem;
 }
 
-.avatar{
+.avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -230,9 +228,8 @@ li a:hover {
 }
 
 .review-rating {
-  color: green
+  color: green;
 }
-
 
 .dashUserInfo {
   width: 350px;
@@ -273,7 +270,6 @@ li a:hover {
   border-radius: 8px;
 }
 
-
 .dashUserInfo .avatar {
   width: 100px;
   height: 100px;
@@ -293,14 +289,14 @@ li a:hover {
 }
 
 .distance-form {
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: "inherit";
 }
 
 .distance-label {
-  font-weight: 600;
+  font-family: "inherit";
 }
 
 .distance-select {
@@ -315,11 +311,10 @@ li a:hover {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 1rem;
+  padding-right: 1rem;
 }
 
 .location-input {
-  height: 3rem;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   border-radius: 6px;
@@ -412,10 +407,10 @@ li a:hover {
   background-color: #45a049;
 }
 
-.dash-avatar{
-  width:80px;
+.dash-avatar {
+  width: 80px;
   height: 80px;
   border-radius: 70%;
-  object-fit:cover;
+  object-fit: cover;
   margin-right: 10px;
 }

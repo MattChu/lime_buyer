@@ -1,13 +1,19 @@
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { AppBar, Toolbar, Typography, Grid, Button, Avatar } from "@mui/material";
 
+import InputLocation from "./InputLocation";
+import InputDistance from "./InputDistance";
+
 export const NavBar = () => {
   const { user } = useContext(UserContext);
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
   return (
-    <AppBar sx={{ mt: 0, mb: 1, position: "sticky", borderRadius: 0, boxShadow: 10 }}>
+    <AppBar sx={{ mt: 0, position: "sticky", borderRadius: 0, boxShadow: 10 }}>
       <Toolbar>
         <Typography
           component="h1"
@@ -23,6 +29,7 @@ export const NavBar = () => {
         >
           <strong>LimeBuyer</strong>
         </Typography>
+
         <Grid
           container
           sx={{
@@ -31,6 +38,12 @@ export const NavBar = () => {
             alignItems: "center",
           }}
         >
+          {pathname === "/mapview" && (
+            <>
+              <InputLocation />
+              <InputDistance />
+            </>
+          )}
           <Button color="inherit" component={Link} to="/">
             MapView
           </Button>
