@@ -13,6 +13,8 @@ import InputLocation from "../components/InputLocation";
 import InputDistance from "../components/InputDistance";
 import LoaderError from "../components/LoaderError";
 
+import { Container } from "@mui/material";
+
 const ReFocusMap = ({ location, zoom }) => {
   const map = useMap();
   useEffect(() => {
@@ -41,8 +43,6 @@ function MapView() {
   const zoom = getZoomByDistance(distance);
   return (
     <>
-      <InputLocation />
-      <InputDistance />
       <LoaderError />
       <MapContainer center={location} zoom={zoom} scrollWheelZoom={true} style={{ height: "100%" }}>
         <TileLayer
