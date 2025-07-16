@@ -32,7 +32,6 @@ function ReviewList({ shop }) {
       <ul>
         {reviews.map((review, index) => (
           <li key={index}>
-            {console.log(review)}
             <div className="review-header">
               {review.avatar_url && <img src={review.avatar_url} alt="avatar missing" className="avatar" />}
               <strong>
