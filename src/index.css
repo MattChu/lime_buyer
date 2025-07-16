@@ -38,7 +38,7 @@
   width: 20px;
   height: 20px;
   background: limegreen;
-  border: 4px solid yellow;
+  border: 2px solid yellow;
   border-radius: 50%;
   box-shadow: 0 0 12px 4px limegreen;
   animation: none;
@@ -80,6 +80,13 @@
   background: gold;
   border-color: black;
 }
+
+.marker-dot.notReviewed {
+  background: #a0a0a0;
+  border-color: #515151;
+  box-shadow: 0 0 12px 4px #a0a0a0;
+}
+
 html,
 body,
 #root {

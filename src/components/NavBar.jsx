@@ -11,7 +11,6 @@ export const NavBar = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
   return (
     <AppBar sx={{ mt: 0, position: "sticky", borderRadius: 0, boxShadow: 10 }}>
       <Toolbar>

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 function ReviewList({ reviews, loading }) {
   if (loading) return <p>Loading reviews</p>;
 
@@ -23,7 +21,9 @@ function ReviewList({ reviews, loading }) {
             </div>
 
             <p className="review-body">{review.body}</p>
-            <em className="review-rating">🍋 {review.rating} / 5</em>
+            <em className="review-rating">
+              🍋 {review.rating} / 5 {review.fruit}
+            </em>
           </li>
         ))}
       </ul>
