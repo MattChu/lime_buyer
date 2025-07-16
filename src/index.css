@@ -421,3 +421,17 @@ li a:hover {
   object-fit: cover;
   margin-right: 10px;
 }
+
+.delete-button {
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+}

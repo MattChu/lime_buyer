@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchReviewsByUser } from "../utils/fetchReviewsByUID.js";
 import { getUser } from "../utils/fetchUsersByUID.js";
+import {removeReviewByID} from "../utils/removeReviewByID.js"
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -46,6 +47,21 @@ function Dashboard() {
       })
   }, []);
 
+  const handleDelete = async (review_id) => {
+    console.log('delete attempt on review:', review_id)
+    if (!window.confirm("are you sure you want to delete this review?")) return;
+
+    try {
+      const uid = auth.currentUser.uid
+      await removeReviewByID(review_id, uid);
+      setUserReviews((previousReviews) =>
+        previousReviews.filter((review) => review.review_id !== review_id)
+      );
+    } catch (err) {
+      console.error("failed to delete review:", err);
+      alert("Could not delete review. Please try again.");
+    }
+  };
 
 
   return (
@@ -80,6 +96,10 @@ function Dashboard() {
                 <small>
                   {new Date(review.published).toLocaleDateString()}
                 </small>
+                <br />
+                {auth.currentUser.uid === review.uid && (
+                  <button className="delete-button" onClick={() => handleDelete(review.review_id)}>Delete</button>
+                )}
               </li>
             ))}
           </ul>
