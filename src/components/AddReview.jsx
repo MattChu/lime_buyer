@@ -1,28 +1,36 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { getAuth } from "firebase/auth";
 
-function AddReview({ shop }) {
+function AddReview({ shop, onNewReview }) {
   const [selectedFruit, setSelectedFruit] = useState("");
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
-
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
-
   const { user } = useContext(UserContext);
+  
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newReview = {
+
+    const auth = getAuth()
+    const firebaseUser = auth.currentUser
+    
+    firebaseUser
+      .getIdToken()
+      .then((token) => {
+      const newReview = {
       fruit: selectedFruit,
       body: review,
       rating: ratingValue,
-      store_id: shop.id,
-      uid: "1",
-    };
-
-    fetch(`https://limebuyer2025-be.onrender.com/api/reviews`, {
+        store_id: shop.id,
+      }
+        return fetch(`https://limebuyer2025-be-fug6.onrender.com/api/reviews`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`
+       },
       body: JSON.stringify(newReview),
     })
       .then((res) => {
@@ -33,11 +41,24 @@ function AddReview({ shop }) {
       })
       .then(() => {
         alert("review saved");
+        return fetch(`https://limebuyer2025-be-fug6.onrender.com/api/reviews/${shop.id}`)
       })
+          .then((res) => {
+            if (!res.ok) throw new Error("failed to fetch updated reviews");
+            return res.json()
+          })
+          .then((updatedReviews) => {
+            onNewReview(updatedReviews.reviews)
+          })
       .catch((error) => {
         console.error(error);
         alert("error saving review");
       });
+        
+    })
+    ;
+
+    
   }
   return isReviewFormVisible ? (
     <>

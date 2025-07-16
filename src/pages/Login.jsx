@@ -32,13 +32,13 @@ function Login() {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
-        <h2>Log In</h2>
-        <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Log In</button>
+      <form className="signup-container" onSubmit={handleLogin}>
+        <h2 className="signup-title">Log In</h2>
+        <input className="signup-input" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        <input className="signup-input" placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
+        <button className="signup-button" type="submit">Log In</button>
       </form>
-      <button onClick={handleGoogleSignup}>Sign Up with Google</button>
+      <button className="signup-button" onClick={handleGoogleSignup}>Sign Up with Google</button>
     </>
   );
 }

@@ -2,29 +2,54 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase.js";
 import { useNavigate } from "react-router-dom";
+import { postUser } from "../utils/postUser.js";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleEmailSignup = async (e) => {
-    e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  e.preventDefault();
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    await postUser(user.uid, username);
+
+    navigate("/dashboard");
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleEmailSignup}>
-        <input placeholder="Email" type="email" onChange={(e) => setEmail(e.target.value)} required />
-        <input placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">Sign Up with Email</button>
+    <div className="signup-container">
+      <h2 className="signup-title">Sign Up</h2>
+      <form className="signup-form" onSubmit={handleEmailSignup}>
+        <input
+          className="signup-input"
+          placeholder="Email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          className="signup-input"
+          placeholder="Username"
+          type="username"
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+
+        <input
+          className="signup-input"
+          placeholder="Password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button className="signup-button" type="submit">Sign Up with Email</button>
       </form>
     </div>
   );
