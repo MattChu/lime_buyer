@@ -11,7 +11,6 @@ export const NavBar = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
   return (
     <AppBar sx={{ mt: 0, position: "sticky", borderRadius: 0, boxShadow: 10 }}>
       <Toolbar>
@@ -27,6 +26,7 @@ export const NavBar = () => {
             textAlign: { xs: "left" },
           }}
         >
+          <img src="../images/lime-logo.png" alt="limebuyer logo" style={{ width: 40, height: 40, marginRight: 8 }} />
           <strong>LimeBuyer</strong>
         </Typography>
 

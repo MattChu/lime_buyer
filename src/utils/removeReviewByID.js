@@ -1,9 +1,10 @@
-export async function postUser(review_id) {
+export async function removeReviewByID(review_id, uid) {
   const response = await fetch(
-    `https://limebuyer2025-be-fug6.onrender.com/reviews/${review_id}`,
+    `https://limebuyer2025-be-fug6.onrender.com/api/reviews/${review_id}`,
     {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({uid})
     }
   );
 
