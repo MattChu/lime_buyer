@@ -392,6 +392,15 @@ li a:hover {
   box-sizing: border-box;
 }
 
+.signup-input-avatarurl {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .signup-input:focus {
   outline: none;
   border-color: limegreen;
