@@ -431,6 +431,10 @@ li a:hover {
   margin-right: 10px;
 }
 
+.Login-error {
+  margin-top: 20px;
+  text-align: center;
+
 .delete-button {
   background: #f44336;
   color: white;
@@ -443,4 +447,5 @@ li a:hover {
 
 .delete-btn:hover {
   background: #d32f2f;
+
 }
