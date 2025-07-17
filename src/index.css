@@ -239,7 +239,7 @@ li a:hover {
 }
 
 .dashUserInfo {
-  width: 350px;
+  width: 20vw;
   height: 700px;
   border: 10px solid lightblue;
   border-radius: 10px;
@@ -254,7 +254,7 @@ li a:hover {
 }
 
 .dashUserReviews {
-  width: 800px;
+  width: 75vw;
   height: 700px;
   border: 10px solid lightblue;
   border-radius: 10px;
