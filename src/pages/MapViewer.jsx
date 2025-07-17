@@ -9,11 +9,9 @@ import { LocationContext } from "../contexts/LocationContext";
 import { DistanceContext } from "../contexts/DistanceContext";
 
 import FruitShopLocator from "../components/FruitShopLocator";
-import InputLocation from "../components/InputLocation";
-import InputDistance from "../components/InputDistance";
 import LoaderError from "../components/LoaderError";
 
-import { Container } from "@mui/material";
+import fruitIcons from "../assets/fruitIcons";
 
 const ReFocusMap = ({ location, zoom }) => {
   const map = useMap();
@@ -50,7 +48,7 @@ function MapView() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ReFocusMap location={location} zoom={zoom} distance={distance} />
-        <Marker position={location}>
+        <Marker position={location} icon={fruitIcons.Marker}>
           <Popup>You are here</Popup>
         </Marker>
         <FruitShopLocator />
