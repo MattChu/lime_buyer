@@ -14,6 +14,11 @@ export const NavBar = () => {
   return (
     <AppBar sx={{ mt: 0, position: "sticky", borderRadius: 0, boxShadow: 10 }}>
       <Toolbar>
+        <img
+          src="../images/lime-logo.png"
+          alt="limebuyer logo"
+          style={{ width: 40, height: 40, marginRight: 8, marginTop: 8 }}
+        />
         <Typography
           component="h1"
           variant="h1"
@@ -26,7 +31,6 @@ export const NavBar = () => {
             textAlign: { xs: "left" },
           }}
         >
-          <img src="../images/lime-logo.png" alt="limebuyer logo" style={{ width: 40, height: 40, marginRight: 8 }} />
           <strong>LimeBuyer</strong>
         </Typography>
 
