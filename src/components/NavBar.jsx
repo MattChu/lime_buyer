@@ -26,6 +26,7 @@ export const NavBar = () => {
             textAlign: { xs: "left" },
           }}
         >
+          <img src="../images/lime-logo.png" alt="limebuyer logo" style={{ width: 40, height: 40, marginRight: 8 }} />
           <strong>LimeBuyer</strong>
         </Typography>
 
