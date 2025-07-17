@@ -414,3 +414,8 @@ li a:hover {
   object-fit: cover;
   margin-right: 10px;
 }
+
+.Login-error {
+  margin-top: 20px;
+  text-align: center;
+}
