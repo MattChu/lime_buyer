@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { auth } from "../../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../utils/fetchUsersByUID";
 import { patchUser } from "../utils/patchUser";
@@ -70,11 +69,7 @@ function EditProfile() {
         <button className="signup-button" type="submit">
           Save Changes
         </button>
-        <button
-          className="signup-button"
-          type="button"
-          onClick={() => navigate("/dashboard")}
-        >
+        <button className="signup-button" type="button" onClick={() => navigate("/dashboard")}>
           Cancel
         </button>
       </form>
