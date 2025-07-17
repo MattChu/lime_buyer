@@ -7,46 +7,44 @@ import { getUser } from "../utils/fetchUsersByUID.js";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [userReviews, setUserReviews] = useState([])
-  const [reviewsLoading, setReviewsLoading] = useState(true)
-  const [userInfo, setUserInfo] = useState(null)
-  const [userInfoLoading, setUserInfoLoading] = useState(true)
+  const [userReviews, setUserReviews] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
+  const [userInfoLoading, setUserInfoLoading] = useState(true);
 
-    const logout = async () => {
+  const logout = async () => {
     await signOut(auth);
     navigate("/login");
   };
   useEffect(() => {
     if (!auth.currentUser) return;
-    setUserInfoLoading(true)
+    setUserInfoLoading(true);
     getUser(auth.currentUser.uid)
       .then((data) => {
-      setUserInfo(data.user)
+        setUserInfo(data.user);
       })
       .catch((err) => {
-      console.error("failed to fetch user info", err)
+        console.error("failed to fetch user info", err);
       })
       .finally(() => {
-      setUserInfoLoading(false)
-    })
-  }, [])
-  
-  useEffect(() => {
-    if (!auth.currentUser) return;
-    setReviewsLoading(true)
-    fetchReviewsByUser(auth.currentUser.uid)
-      .then((data) => {
-        setUserReviews(data.reviews)
-      })
-      .catch((err) => {
-        console.error("failed to load user reviews", err)
-      })
-      .finally(() => {
-        setReviewsLoading(false)
-      })
+        setUserInfoLoading(false);
+      });
   }, []);
 
-
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    setReviewsLoading(true);
+    fetchReviewsByUser(auth.currentUser.uid)
+      .then((data) => {
+        setUserReviews(data.reviews);
+      })
+      .catch((err) => {
+        console.error("failed to load user reviews", err);
+      })
+      .finally(() => {
+        setReviewsLoading(false);
+      });
+  }, []);
 
   return (
     <div>
@@ -58,10 +56,21 @@ function Dashboard() {
       <hr />
 
       <div className="dashUserInfo">
-        <img className="dash-avatar" src={userInfo?.avatar_url ?? "https://i.imgur.com/ROKbYGu_d.jpeg?maxwidth=520&shape=thumb&fidelity=high"} alt="avatar"></img>
+        <img
+          className="dash-avatar"
+          src={
+            userInfo?.avatar_url ??
+            "https://api.dicebear.com/9.x/thumbs/svg?seed=Eden"
+          }
+          alt="avatar"
+        ></img>
         <p>Email: {auth.currentUser.email}</p>
-        <p>Username: {userInfo?.username && "No username set"}</p>
+
+        <p>
+          Username: {userInfo?.username ? userInfo.username : "No username set"}
+        </p>
         <button onClick={logout}>Log Out</button>
+        <button onClick={logout}>Edit Profile</button>
       </div>
       <div className="dashUserReviews">
         <h3>Your Reviews</h3>
@@ -73,13 +82,11 @@ function Dashboard() {
           <ul>
             {userReviews.map((review) => (
               <li key={review.review_id}>
-                <p><strong>{review.fruit}</strong> — {review.body}</p>
-                <p style={{ color: "green" }}>
-                  Rating: {review.rating} 🍋
+                <p>
+                  <strong>{review.fruit}</strong> — {review.body}
                 </p>
-                <small>
-                  {new Date(review.published).toLocaleDateString()}
-                </small>
+                <p style={{ color: "green" }}>Rating: {review.rating} 🍋</p>
+                <small>{new Date(review.published).toLocaleDateString()}</small>
               </li>
             ))}
           </ul>

@@ -7,21 +7,32 @@ import { postUser } from "../utils/postUser.js";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleEmailSignup = async (e) => {
-  e.preventDefault();
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    await postUser(user.uid, username);
+    e.preventDefault();
 
-    navigate("/dashboard");
-  } catch (err) {
-    alert(err.message);
-  }
-};
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      await postUser(user.uid, username);
+
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -37,11 +48,10 @@ function Signup() {
         <input
           className="signup-input"
           placeholder="Username"
-          type="username"
+          type="text"
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-
         <input
           className="signup-input"
           placeholder="Password"
@@ -49,7 +59,16 @@ function Signup() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="signup-button" type="submit">Sign Up with Email</button>
+        <input
+          className="signup-input"
+          placeholder="Confirm Password"
+          type="password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        <button className="signup-button" type="submit">
+          Sign Up with Email
+        </button>
       </form>
     </div>
   );
