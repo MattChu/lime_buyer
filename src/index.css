@@ -434,6 +434,7 @@ li a:hover {
 .Login-error {
   margin-top: 20px;
   text-align: center;
+}
 
 .delete-button {
   background: #f44336;
@@ -447,5 +448,4 @@ li a:hover {
 
 .delete-btn:hover {
   background: #d32f2f;
-
 }
