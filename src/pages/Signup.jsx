@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase.js";
+import { auth } from "../../firebase/firebase.config.js";
 import { useNavigate } from "react-router-dom";
 import { postUser } from "../utils/postUser.js";
 
@@ -20,11 +20,7 @@ function Signup() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await postUser(user.uid, username);
 

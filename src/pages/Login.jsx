@@ -1,10 +1,6 @@
 import { useState } from "react";
-import {
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../../firebase/firebase.js";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config.js";
 import { useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
@@ -50,11 +46,7 @@ function Login() {
     <>
       <form className="signup-container" onSubmit={handleLogin}>
         <h2 className="signup-title">Log In</h2>
-        <input
-          className="signup-input"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <input className="signup-input" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
         <input
           className="signup-input"
           placeholder="Password"
