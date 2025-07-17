@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchReviewsByUser } from "../utils/fetchReviewsByUID.js";
 import { getUser } from "../utils/fetchUsersByUID.js";
-import {removeReviewByID} from "../utils/removeReviewByID.js"
+import { removeReviewByID } from "../utils/removeReviewByID.js";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -48,11 +48,11 @@ function Dashboard() {
   }, []);
 
   const handleDelete = async (review_id) => {
-    console.log('delete attempt on review:', review_id)
+    console.log("delete attempt on review:", review_id);
     if (!window.confirm("are you sure you want to delete this review?")) return;
 
     try {
-      const uid = auth.currentUser.uid
+      const uid = auth.currentUser.uid;
       await removeReviewByID(review_id, uid);
       setUserReviews((previousReviews) =>
         previousReviews.filter((review) => review.review_id !== review_id)
@@ -66,10 +66,7 @@ function Dashboard() {
   return (
     <div>
       <h2>Welcome to the Dashboard</h2>
-      <p>
-        You are logged in as {auth.currentUser.email} with uid{" "}
-        {auth.currentUser.uid}
-      </p>
+
       <hr />
 
       <div className="dashUserInfo">
@@ -87,7 +84,8 @@ function Dashboard() {
           Username: {userInfo?.username ? userInfo.username : "No username set"}
         </p>
         <button onClick={logout}>Log Out</button>
-        <button onClick={logout}>Edit Profile</button>
+        <br></br>
+        <button onClick={() => navigate("/editprofile")}>Edit Profile</button>
       </div>
       <div className="dashUserReviews">
         <h3>Your Reviews</h3>
@@ -104,15 +102,17 @@ function Dashboard() {
                 </p>
 
                 <p style={{ color: "green" }}>Rating: {review.rating} 🍋</p>
-        
-                <small>
-                  {new Date(review.published).toLocaleDateString()}
-                </small>
+
+                <small>{new Date(review.published).toLocaleDateString()}</small>
                 <br />
                 {auth.currentUser.uid === review.uid && (
-                  <button className="delete-button" onClick={() => handleDelete(review.review_id)}>Delete</button>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(review.review_id)}
+                  >
+                    Delete
+                  </button>
                 )}
-
               </li>
             ))}
           </ul>
