@@ -1,4 +1,4 @@
-# <img src="./assets/lime-logo.png" alt="Lime Logo" width="50" /> LimeBuyer - Frontend
+# !<img src="./public/images/lime-logo.png" alt="Lime Logo" width="50" /> LimeBuyer - Frontend
 
 A responsive React frontend for LimeBuyer, an interactive app for locating and reviewing fruit shops. Users can:
 
